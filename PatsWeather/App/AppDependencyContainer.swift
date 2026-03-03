@@ -15,6 +15,37 @@ final class AppDependencyContainer {
         validator: responseValidator
     )
     
+    private lazy var openWeatherConfig: OpenWeatherConfig = OpenWeatherConfig(
+        apiKey: provideOpenWeatherAPIKey(),
+        units: .metric,
+        languageCode: "en"
+    )
+    
+    private lazy var openWeatherEndpointFactory: OpenWeatherEndpointBuilding = OpenWeatherEndpointFactory(
+        config: openWeatherConfig
+    )
+    
+    private lazy var geocodingService: GeocodingServiceType = OpenWeatherGeocodingService(
+        endpointFactory: openWeatherEndpointFactory,
+        requestBuilder: requestBuilder,
+        httpClient: httpClient
+    )
+    
+    private lazy var weatherService: WeatherServiceType = OpenWeatherWeatherService(
+        endpointFactory: openWeatherEndpointFactory, requestBuilder: requestBuilder, httpClient: httpClient
+    )
+    
+    func makeGeocodingService() -> GeocodingServiceType{
+        geocodingService
+    }
+    
+    func makeWeatherService() -> WeatherServiceType{
+        return weatherService
+    }
+    
+        
+    
+    
     func makeAppCoordinator(window: UIWindow) -> AppCoordinator {
         AppCoordinator(window: window, dependencies: self )
     }
@@ -43,5 +74,9 @@ final class AppDependencyContainer {
     
     func makeHTTPClient() -> HTTPClient {
         httpClient
+    }
+    
+    private func provideOpenWeatherAPIKey() -> String{
+        return "REPLACE_ME"
     }
 }

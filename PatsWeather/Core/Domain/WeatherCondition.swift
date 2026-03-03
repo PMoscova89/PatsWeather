@@ -9,21 +9,20 @@
 import Foundation
 
 struct WeatherCondition: Equatable {
-    let id: Int
-    let main: String
-    let detail: String
-    let iconID: String
+    let id: Int?
+    let main: String?
+    let description: String?
+    let icon: String?
     
-    init(id: Int, main: String, detail: String, iconID: String) {
+    init(
+        id: Int? = nil,
+        main: String? = nil,
+        description: String? = nil,
+        icon: String? = nil
+    ) {
         self.id = id
         self.main = main
-        self.detail = detail
-        self.iconID = iconID
-    }
-}
-
-extension WeatherCondition {
-    var iconURL: URL? {
-        URL(string: "https://openweathermap.org/img/wn/\(iconID)@2x.png")
+        self.description = description
+        self.icon = icon
     }
 }

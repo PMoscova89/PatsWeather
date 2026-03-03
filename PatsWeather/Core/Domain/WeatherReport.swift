@@ -4,31 +4,49 @@
 //
 //  Created by Patrick Moscova on 3/2/26.
 //
-
 import Foundation
 
 struct WeatherReport: Equatable {
-    let location: LocationDescriptor
-    let condition: WeatherCondition
-    let temperature: Temperature
-    let wind: Wind?
-    let humidityPercent: Int?
-    let pressureHPa: Int?
-    let observationDate: Date
+    let timezone: String
+    let current: CurrentWeather
+    let hourly: [HourlyForecast]
+    let daily: [DailyForecast]
+    let alerts: [WeatherAlert]
     
-    init(location: LocationDescriptor,
-         condition: WeatherCondition,
-         temperature: Temperature,
-         wind: Wind? = nil,
-         humidityPercent: Int? = nil,
-         pressureHPa: Int? = nil,
-         observationDate: Date = Date()) {
-        self.location = location
-        self.condition = condition
-        self.temperature = temperature
-        self.wind = wind
-        self.humidityPercent = humidityPercent
-        self.pressureHPa = pressureHPa
-        self.observationDate = observationDate
+    struct CurrentWeather: Equatable {
+        let timestamp: Date
+        let sunrise: Date?
+        let sunset: Date?
+        let temperature: Double
+        let feelsLike: Double?
+        let humidity: Int?
+        let windSpeed: Double?
+        let condition: WeatherCondition
+    }
+    
+    struct HourlyForecast: Equatable {
+        let timestamp: Date
+        let temperature: Double?
+        let precipitationChance: Double?
+        let condition: WeatherCondition
+    }
+    
+    struct DailyForecast: Equatable {
+        let timestamp: Date
+        let sunrise: Date?
+        let sunset: Date?
+        let minTemp: Double?
+        let maxTemp: Double?
+        let condition: WeatherCondition
+        let summary: String?
+    }
+    
+    struct WeatherAlert: Equatable {
+        let senderName: String?
+        let event: String?
+        let start: Date?
+        let end: Date?
+        let description: String?
+        let tags: [String]
     }
 }
