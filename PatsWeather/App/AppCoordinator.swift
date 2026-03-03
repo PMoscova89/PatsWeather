@@ -10,9 +10,11 @@ import UIKit
 final class AppCoordinator: Coordinator {
     private let window: UIWindow
     private let navigationController: UINavigationController
+    private let dependencies: AppDependencyContainer
     
-    init(window: UIWindow){
+    init(window: UIWindow, dependencies: AppDependencyContainer){
         self.window = window
+        self.dependencies = dependencies
         self.navigationController = UINavigationController()
     }
     
@@ -24,7 +26,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showSearch(){
-        let vc = SearchViewController()
+        let vc = dependencies.makeSearchViewController()
         vc.onShowWeather = {[weak self] in
             self?.showWeather()
         }
@@ -32,7 +34,7 @@ final class AppCoordinator: Coordinator {
     }
     
     private func showWeather() {
-        let vc = WeatherViewController()
+        let vc = dependencies.makeWeatherViewController()
         navigationController.pushViewController(vc, animated: true)
     }
 }

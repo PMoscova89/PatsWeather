@@ -8,6 +8,7 @@
 import UIKit
 
 final class SearchViewController: UIViewController {
+    private let viewModel: SearchViewModel
     var onShowWeather: (() -> Void)?
     
     private lazy var showWeatherButton: UIButton = {
@@ -16,6 +17,15 @@ final class SearchViewController: UIViewController {
         button.addTarget(self, action: #selector(didTapShowWeather), for: .touchUpInside)
         return button
     }()
+    
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
