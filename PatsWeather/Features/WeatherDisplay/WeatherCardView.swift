@@ -10,8 +10,9 @@ import SwiftUI
 struct WeatherCardView : View {
     var body: some View {
         VStack(spacing: 12) {
-            Text("Weather")
+            Text(K.LabelText.Weather.title)
                 .font(.title2)
+                .accessibilityIdentifier(K.LabelText.Weather.title)
             Text("SwiftUICard Placeholder")
                 .font(.body)
         }

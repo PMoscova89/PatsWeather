@@ -13,7 +13,8 @@ final class SearchViewController: UIViewController {
     
     private lazy var showWeatherButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Go To Weather", for: .normal)
+        button.setTitle(K.LabelText.Search.searchButtonTitle, for: .normal)
+        button.accessibilityIdentifier = K.Accessibility.Search.searchButton
         button.addTarget(self, action: #selector(didTapShowWeather), for: .touchUpInside)
         return button
     }()
@@ -29,7 +30,7 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Search"
+        title = K.LabelText.Search.title
         view.backgroundColor = .systemBackground
         view.addSubview(showWeatherButton)
         showWeatherButton.translatesAutoresizingMaskIntoConstraints = false

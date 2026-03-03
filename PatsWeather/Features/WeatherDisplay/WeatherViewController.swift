@@ -12,7 +12,7 @@ final class WeatherViewController: UIViewController {
     private let viewModel: WeatherViewModel
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Weather"
+        title = K.LabelText.Weather.title
         view.backgroundColor = .systemBackground
         
         let cardView = WeatherCardView()
