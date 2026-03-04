@@ -27,9 +27,7 @@ final class AppCoordinator: Coordinator {
     
     private func showSearch(){
         let vc = dependencies.makeSearchViewController()
-        vc.onShowWeather = {[weak self] in
-            self?.showWeather()
-        }
+
         navigationController.setViewControllers([vc], animated: true)
     }
     

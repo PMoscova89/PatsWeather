@@ -15,7 +15,7 @@ final class WeatherViewController: UIViewController {
         title = K.LabelText.Weather.title
         view.backgroundColor = .systemBackground
         
-        let cardView = WeatherCardView()
+        let cardView = WeatherCardView(weatherViewModel: viewModel)
         let hostingController = UIHostingController(rootView: cardView)
         
         addChild(hostingController)

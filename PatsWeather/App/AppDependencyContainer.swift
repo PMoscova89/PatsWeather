@@ -55,6 +55,19 @@ final class AppDependencyContainer {
     private lazy var lastKnownAppStateStore: LastKnownAppStateStoring = UserDefaultsLastKnownAppStateStore()
     private lazy var launchStateRestorer: AppLaunchStateRestoring = StartupStateController(store: lastKnownAppStateStore)
     
+    
+    private lazy var searchViewModel: SearchViewModel = SearchViewModel(
+        geocodingService: makeGeocodingService(),
+        lastKnownStateStore: makeLastKnownAppStateStore()
+    )
+    
+    private lazy var weatherViewModel: WeatherViewModel = WeatherViewModel(
+        weatherService: makeWeatherService(),
+        iconLoader: makeIconLoader(),
+        lastKnownStateStore: makeLastKnownAppStateStore(),
+        locationService: makeLocationService()
+    )
+    
     func makeLastKnownAppStateStore() -> LastKnownAppStateStoring {
         return lastKnownAppStateStore
     }
@@ -63,7 +76,7 @@ final class AppDependencyContainer {
         launchStateRestorer
     }
     
-    func makeIconLodaer() -> WeatherIconLoading {
+    func makeIconLoader() -> WeatherIconLoading {
         iconLoader
     }
     
@@ -82,17 +95,18 @@ final class AppDependencyContainer {
         AppCoordinator(window: window, dependencies: self )
     }
     
-    func makeSearchViewMocel() -> SearchViewModel {
-        SearchViewModel()
+    func makeSearchViewModel() -> SearchViewModel {
+        return searchViewModel
     }
     
     func makeSearchViewController() -> SearchViewController {
-        let viewModel = makeSearchViewMocel()
-        return SearchViewController(viewModel:  viewModel)
+        let viewModel = makeSearchViewModel()
+        let weatherViewModel = makeWeatherViewModel()
+        return SearchViewController(searchViewModel:  viewModel, weatherViewModel: weatherViewModel)
     }
     
     func makeWeatherViewModel() ->WeatherViewModel {
-        WeatherViewModel()
+        return weatherViewModel
     }
     
     func makeWeatherViewController() -> WeatherViewController {
