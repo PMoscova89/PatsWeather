@@ -10,6 +10,19 @@ final class AppDependencyContainer {
     private lazy var urlBuilder: URLBuilding = URLBuilder()
     private lazy var requestBuilder: RequestBuilding = RequestBuilder(urlBuilder: urlBuilder)
     private lazy var responseValidator: ResponseValidating = ResponseValidator()
+    
+    private lazy var memoryCache: ImageCaching = InMemoryImageCache()
+    private lazy var diskCache: ImageCaching = DiskImageCache()
+    
+    private lazy var iconURLBuilder: WeatherIconURLBuilding =  WeatherIconURLBuilder()
+    
+    private lazy var iconLoader: WeatherIconLoading =
+    WeatherIconLoader(urlBuilder: iconURLBuilder,
+                      httpClient: httpClient,
+                      memoryCache: memoryCache,
+                      diskCache: diskCache
+    )
+    
     private lazy var httpClient: HTTPClient = DefaultHTTPClient(
         session: URLSession.shared,
         validator: responseValidator
@@ -34,6 +47,21 @@ final class AppDependencyContainer {
     private lazy var weatherService: WeatherServiceType = OpenWeatherWeatherService(
         endpointFactory: openWeatherEndpointFactory, requestBuilder: requestBuilder, httpClient: httpClient
     )
+    
+    private lazy var lastKnownAppStateStore: LastKnownAppStateStoring = UserDefaultsLastKnownAppStateStore()
+    private lazy var launchStateRestorer: AppLaunchStateRestoring = StartupStateController(store: lastKnownAppStateStore)
+    
+    func makeLastKnownAppStateStore() -> LastKnownAppStateStoring {
+        return lastKnownAppStateStore
+    }
+    
+    func makeLaunchStateRestorer() -> AppLaunchStateRestoring {
+        launchStateRestorer
+    }
+    
+    func makeIconLodaer() -> WeatherIconLoading {
+        iconLoader
+    }
     
     func makeGeocodingService() -> GeocodingServiceType{
         geocodingService
