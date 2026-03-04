@@ -9,11 +9,12 @@ import Foundation
 
 protocol OpenWeatherOneCallMapping{
     func mapToWeatherReport(_ dto: OpenWeatherOneCallDTO) -> WeatherReport?
+    func mapToWeatherReport(_ dto: OpenWeatherCurrentWeatherDTO) -> WeatherReport?
 }
 
 struct OpenWeatherOneCallMapper: OpenWeatherOneCallMapping {
-    
-    
+
+
     func mapToWeatherReport(_ dto: OpenWeatherOneCallDTO) -> WeatherReport? {
         guard let timezone = dto.timezone else {
             return nil
@@ -121,5 +122,38 @@ struct OpenWeatherOneCallMapper: OpenWeatherOneCallMapping {
     private func optionalDate(fromUnix unix: Int?) -> Date? {
         guard let unix = unix else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(unix))
+    }
+}
+
+extension OpenWeatherOneCallMapper {
+    
+    func mapToWeatherReport(_ dto: OpenWeatherCurrentWeatherDTO) -> WeatherReport? {
+        let timezoneName = dto.name ?? "Unknown"
+        
+        let condition = WeatherCondition(
+            id: dto.weather?.first?.id,
+            main: dto.weather?.first?.main,
+            description: dto.weather?.first?.description,
+            icon: dto.weather?.first?.icon
+        )
+        
+        let current = WeatherReport.CurrentWeather(
+            timestamp: date(fromUnix: dto.dt),
+            sunrise: optionalDate(fromUnix: dto.sys?.sunrise),
+            sunset: optionalDate(fromUnix: dto.sys?.sunset),
+            temperature: dto.main?.temp ?? 0.0,
+            feelsLike: dto.main?.feelsLike,
+            humidity: dto.main?.humidity,
+            windSpeed: dto.wind?.speed,
+            condition: condition
+        )
+        
+        return WeatherReport(
+            timezone: timezoneName,
+            current: current,
+            hourly: [],
+            daily: [],
+            alerts: []
+        )
     }
 }

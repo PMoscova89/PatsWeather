@@ -9,7 +9,8 @@ import Foundation
 
 protocol OpenWeatherEndpointBuilding {
     func makeGeocodingEndpoint(city: String, limit: Int) -> Endpoint
-    func makeOneCallEndpoint(coordinate: Coordinate, excludeParts: [String]) -> Endpoint
+    //func makeOneCallEndpoint(coordinate: Coordinate, excludeParts: [String]) -> Endpoint
+    func makeCurrentWeatherEndpoint(coordinate: Coordinate, units: String, lang: String) -> Endpoint
 }
 
 struct OpenWeatherEndpointFactory: OpenWeatherEndpointBuilding {
@@ -33,26 +34,45 @@ struct OpenWeatherEndpointFactory: OpenWeatherEndpointBuilding {
             )
     }
     
-    func makeOneCallEndpoint(coordinate: Coordinate, excludeParts: [String] = []) -> Endpoint {
-        var queryItems: [URLQueryItem] = [
-            URLQueryItem(name: "lat", value: String(coordinate.latitude)),
-            URLQueryItem(name: "lon", value: String(coordinate.longitude)),
-            URLQueryItem(name: "appid", value: config.apiKey),
-            URLQueryItem(name: "units", value: config.units.rawValue)
-        ]
-        
-        if let languageCode = config.languageCode, !languageCode.isEmpty {
-            queryItems.append(URLQueryItem(name: "lang", value: languageCode))
-        }
-        if !excludeParts.isEmpty {
-            let value = excludeParts.joined(separator: ",")
-            queryItems.append(URLQueryItem(name: "exclude", value: value))
-        }
-        return Endpoint(
-            host: config.host,
-            path: "data/3.0/onecall",
-            method: .get,
-            queryItems: queryItems
+//    func makeOneCallEndpoint(coordinate: Coordinate, excludeParts: [String] = []) -> Endpoint {
+//        var queryItems: [URLQueryItem] = [
+//            URLQueryItem(name: "lat", value: String(coordinate.latitude)),
+//            URLQueryItem(name: "lon", value: String(coordinate.longitude)),
+//            URLQueryItem(name: "appid", value: config.apiKey),
+//            URLQueryItem(name: "units", value: config.units.rawValue)
+//        ]
+//        
+//        if let languageCode = config.languageCode, !languageCode.isEmpty {
+//            queryItems.append(URLQueryItem(name: "lang", value: languageCode))
+//        }
+//        if !excludeParts.isEmpty {
+//            let value = excludeParts.joined(separator: ",")
+//            queryItems.append(URLQueryItem(name: "exclude", value: value))
+//        }
+//        return Endpoint(
+//            host: config.host,
+//            path: "data/3.0/onecall",
+//            method: .get,
+//            queryItems: queryItems
+//        )
+//    }
+//    
+//    
+    func makeCurrentWeatherEndpoint(
+        coordinate: Coordinate,
+        units: String = "metric",
+        lang: String = "en"
+    ) -> Endpoint {
+        Endpoint(
+            host: "api.openweathermap.org",
+            path: "/data/2.5/weather",
+            queryItems: [
+                URLQueryItem(name: "lat", value: String(coordinate.latitude)),
+                URLQueryItem(name: "lon", value: String(coordinate.longitude)),
+                URLQueryItem(name: "appid", value: config.apiKey),
+                URLQueryItem(name: "units", value: units),
+                URLQueryItem(name: "lang", value: lang)
+            ]
         )
     }
 }

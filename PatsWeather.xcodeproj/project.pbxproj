@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7B76BDB62F589A8300F30D25 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */; };
+		7B76BDB82F589AE800F30D25 /* Secrets.Example.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7B76BDB72F589AE800F30D25 /* Secrets.Example.xcconfig */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		7BD91A352F5655F00077DF42 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		7B76BDB72F589AE800F30D25 /* Secrets.Example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.Example.xcconfig; sourceTree = "<group>"; };
 		7BD91A1B2F5655EE0077DF42 /* PatsWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PatsWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD91A342F5655F00077DF42 /* PatsWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PatsWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BD91A3E2F5655F00077DF42 /* PatsWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PatsWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +95,8 @@
 		7BD91A122F5655EE0077DF42 = {
 			isa = PBXGroup;
 			children = (
+				7B76BDB72F589AE800F30D25 /* Secrets.Example.xcconfig */,
+				7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */,
 				7BD91A1D2F5655EE0077DF42 /* PatsWeather */,
 				7BD91A372F5655F00077DF42 /* PatsWeatherTests */,
 				7BD91A412F5655F00077DF42 /* PatsWeatherUITests */,
@@ -225,6 +234,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B76BDB82F589AE800F30D25 /* Secrets.Example.xcconfig in Resources */,
+				7B76BDB62F589A8300F30D25 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +295,7 @@
 /* Begin XCBuildConfiguration section */
 		7BD91A482F5655F00077DF42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -315,6 +327,7 @@
 		};
 		7BD91A492F5655F00077DF42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -346,6 +359,7 @@
 		};
 		7BD91A4A2F5655F00077DF42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -410,6 +424,7 @@
 		};
 		7BD91A4B2F5655F00077DF42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B76BDB52F589A8300F30D25 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

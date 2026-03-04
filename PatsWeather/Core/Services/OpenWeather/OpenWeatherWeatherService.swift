@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WeatherServiceType {
-    func fetchWeather(for coordinate: Coordinate, excludeParts: [String]) async throws -> WeatherReport
+    func fetchWeather(for coordinate: Coordinate, units: String, lang: String) async throws -> WeatherReport
 }
 
 final class OpenWeatherWeatherService: WeatherServiceType {
@@ -30,14 +30,14 @@ final class OpenWeatherWeatherService: WeatherServiceType {
         self.jsonDecoder = jsonDecoder
     }
     
-    func fetchWeather(for coordinate: Coordinate, excludeParts: [String] = []) async throws -> WeatherReport {
-        let endpoint = endpointFactory.makeOneCallEndpoint(coordinate: coordinate, excludeParts: excludeParts)
-        
+    func fetchWeather(for coordinate: Coordinate, units: String = "metric", lang: String = "en") async throws -> WeatherReport {
+        //let endpoint = endpointFactory.make(coordinate: coordinate, excludeParts: excludeParts)
+        let endpoint = endpointFactory.makeCurrentWeatherEndpoint(coordinate: coordinate, units: units, lang: lang)
         let request = try requestBuilder.makeRequest(from: endpoint)
         let data = try await httpClient.perform(request)
         
         do{
-            let dto = try jsonDecoder.decode(OpenWeatherOneCallDTO.self, from: data)
+            let dto = try jsonDecoder.decode(OpenWeatherCurrentWeatherDTO.self, from: data)
             guard let report = mapper.mapToWeatherReport(dto) else {
                 throw NetworkError.decodingFailed("Mapping failed because required fields were missing")
             }

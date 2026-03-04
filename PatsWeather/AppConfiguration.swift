@@ -5,6 +5,12 @@
 //  Created by Patrick Moscova on 3/2/26.
 //
 
-enum AppConfiguration{
-    static let openWatherAPIKey: String = "YOUR_API_KEY_HERE"
+import Foundation
+enum AppConfiguration {
+    static var openWeatherApiKey: String {
+        let key = Bundle.main.object(forInfoDictionaryKey: "OPENWEATHER_API_KEY") as? String ?? ""
+        print("OpenWeather key starts with:", String(key.prefix(8)))
+        return key.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
 }

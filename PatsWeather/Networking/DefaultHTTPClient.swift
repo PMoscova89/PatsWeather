@@ -18,9 +18,14 @@ final class DefaultHTTPClient: HTTPClient {
     
     func perform(_ request: URLRequest) async throws -> Data {
         do {
+            if let url = request.url {
+                print("Final URL:", url.absoluteString)
+                print("Query:", URLComponents(url: url, resolvingAgainstBaseURL: false)?.query ?? "nil")
+            }
             let (data, response) = try await session.data(for: request)
             return try validator.validate(data: data, response: response)
         }catch let error as NetworkError{
+            print("\(error.localizedDescription)")
             throw error
         }catch {
             throw NetworkError.map(error)

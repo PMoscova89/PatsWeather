@@ -16,7 +16,14 @@ struct URLBuilder: URLBuilding {
         var components = URLComponents()
         components.scheme = endpoint.scheme
         components.host = endpoint.host
-        components.path = endpoint.path
+        
+        // URLComponents.path should start with "/"
+        if endpoint.path.hasPrefix("/") {
+            components.path = endpoint.path
+        } else {
+            components.path = "/" + endpoint.path
+        }
+        
         components.queryItems = endpoint.queryItems.isEmpty ? nil : endpoint.queryItems
         return components.url
     }

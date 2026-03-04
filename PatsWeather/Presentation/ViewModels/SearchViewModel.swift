@@ -60,7 +60,7 @@ final class SearchViewModel {
             
             status = .succeeded(city: city, coordinate: coordinate)
         }catch{
-            status = .failed(message: "Could not find that city. Try again.")
+            status = .failed(message: "Could not find that city. Try again. \(error.localizedDescription)")
         }
     }
 }

@@ -10,8 +10,40 @@ import SwiftUI
 struct WeatherCardView : View {
     let weatherViewModel: WeatherViewModel
     
+    
     var body: some View {
-        
+        VStack(alignment: .leading, spacing: 12) {
+            
+            switch weatherViewModel.weatherStatus {
+                case .idle:
+                    Text(K.LabelText.Weather.idleStatusLabel)
+                        .accessibilityIdentifier(K.Accessibility.WeatherCard.idleStatusLabel)
+                    
+                case .loading:
+                    HStack(spacing: 8) {
+                        ProgressView()
+                        Text(K.LabelText.Weather.loadingStatusLabel)
+                            .accessibilityLabel(K.Accessibility.WeatherCard.loadingStatusLabel)
+                    }
+                    .accessibilityIdentifier(K.Accessibility.WeatherCard.loadingStatusLabel)
+                    
+                case .failed(let message):
+                    Text(message)
+                        .foregroundStyle(.red)
+                        .accessibilityIdentifier(K.Accessibility.WeatherCard.errorLabel)
+                    
+                case .success(let report, let locationName):
+                    header(report: report)
+                    details(report: report)
+            }
+        }
+        .padding(16)
+        .frame(maxWidth: 520, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.secondarySystemBackground))
+        )
+        .accessibilityIdentifier(K.Accessibility.WeatherCard.container)
     }
     
     @ViewBuilder

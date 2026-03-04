@@ -34,13 +34,13 @@ final class WeatherViewModel {
     }
     
     
-    func fetchWeather(for coordinate: Coordinate, excludeParts parts: [String] = []) async {
+    func fetchWeather(for coordinate: Coordinate, units: String = "metric", lang: String = "en") async {
         weatherStatus = .loading
         iconStatus = .idle
         iconImage = nil
         
         do {
-            let report = try await weatherService.fetchWeather(for: coordinate, excludeParts: parts)
+            let report = try await weatherService.fetchWeather(for: coordinate, units: units, lang: lang)
             let current = lastKnownStateStore.load()
             let displayName = current.lastSearchedCity ?? "Current Location"
             weatherStatus = .success(report: report, locationName: displayName)
@@ -53,7 +53,8 @@ final class WeatherViewModel {
             lastKnownStateStore.save(updated)
             await loadIconIfAvailable(from: report)
         }catch {
-            weatherStatus = .failed(message: "Weather could not be loaded. Try again.")
+//            weatherStatus = .failed(message: "Weather could not be loaded. Try again.\n\(error.localizedDescription)")
+            weatherStatus = .failed(message: "\(error.localizedDescription)")
         }
     }
     

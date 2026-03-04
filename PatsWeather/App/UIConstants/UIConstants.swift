@@ -31,12 +31,14 @@ struct K {
             static let humidityLabel = "WEATHER_humidity_label"
             static let iconImage = "WEATHER_icon_image"
             static let feelsLikeLabel = "WEATHER_feels_like_label"
+            
         }
         
         struct WeatherCard {
             static let errorLabel = "WEATHER_CARD_error_text"
             static let idleStatusLabel =  "WEATHER_CARD_idle_text"
             static let loadingStatusLabel = "WEATHER_CARD_loading_text"
+            static let container = "WEATHER_CARD_container"
         }
     }
     

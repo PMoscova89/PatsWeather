@@ -202,3 +202,50 @@ struct OpenWeatherOneCallDTO: Decodable, Equatable {
         }
     }
 }
+
+struct OpenWeatherCurrentWeatherDTO: Decodable {
+    let name: String?
+    let dt: Int?
+    let timezone: Int?
+    
+    let weather: [WeatherDTO]?
+    let main: MainDTO?
+    let wind: WindDTO?
+    let sys: SysDTO?
+    
+    struct WeatherDTO: Decodable {
+        let id: Int?
+        let main: String?
+        let description: String?
+        let icon: String?
+    }
+    
+    struct MainDTO: Decodable {
+        let temp: Double?
+        let feelsLike: Double?
+        let tempMin: Double?
+        let tempMax: Double?
+        let pressure: Int?
+        let humidity: Int?
+        
+        enum CodingKeys: String, CodingKey {
+            case temp
+            case pressure
+            case humidity
+            case feelsLike = "feels_like"
+            case tempMin = "temp_min"
+            case tempMax = "temp_max"
+        }
+    }
+    
+    struct WindDTO: Decodable {
+        let speed: Double?
+        let deg: Int?
+    }
+    
+    struct SysDTO: Decodable {
+        let country: String?
+        let sunrise: Int?
+        let sunset: Int?
+    }
+}

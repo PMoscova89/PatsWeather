@@ -43,6 +43,7 @@ final class OpenWeatherGeocodingService: GeocodingServiceType {
             }
             return mapper.mapToCoordinatoe(first)
         }catch let error as NetworkError {
+            print("\(error.localizedDescription)")
             throw error
         }catch {
             throw NetworkError.decodingFailed(error.localizedDescription)

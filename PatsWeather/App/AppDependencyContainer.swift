@@ -127,6 +127,6 @@ final class AppDependencyContainer {
     }
     
     private func provideOpenWeatherAPIKey() -> String{
-        return "REPLACE_ME"
+        return AppConfiguration.openWeatherApiKey
     }
 }
