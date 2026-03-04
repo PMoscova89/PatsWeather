@@ -5,6 +5,8 @@
 //  Created by Patrick Moscova on 3/2/26.
 //
 import UIKit
+import CoreLocation
+
 final class AppDependencyContainer {
     
     private lazy var urlBuilder: URLBuilding = URLBuilder()
@@ -33,6 +35,8 @@ final class AppDependencyContainer {
         units: .metric,
         languageCode: "en"
     )
+    
+    private lazy var locationService: LocationServiceType = CLLocationManagerLocationService(manager: CLLocationManager())
     
     private lazy var openWeatherEndpointFactory: OpenWeatherEndpointBuilding = OpenWeatherEndpointFactory(
         config: openWeatherConfig
@@ -102,6 +106,10 @@ final class AppDependencyContainer {
     
     func makeHTTPClient() -> HTTPClient {
         httpClient
+    }
+    
+    func makeLocationService() -> LocationServiceType {
+        return locationService
     }
     
     private func provideOpenWeatherAPIKey() -> String{
