@@ -18,6 +18,19 @@ struct OpenWeatherOneCallDTO: Decodable, Equatable {
     let hourly: [HourlyDTO]?
     let daily: [DailyDTO]?
     let alerts: [AlertDTO]?
+    
+    enum CodingKeys: String, CodingKey {
+        case lat
+        case lon
+        case timezone
+        case timezoneOffset = "timezone_offset"
+        case current
+        case minutely
+        case hourly
+        case daily
+        case alerts
+    }
+    
     struct CurrentDTO: Decodable, Equatable {
         let dt: Int?
         let sunrise: Int?

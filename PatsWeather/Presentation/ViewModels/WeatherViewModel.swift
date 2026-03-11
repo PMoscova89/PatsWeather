@@ -16,7 +16,7 @@ final class WeatherViewModel {
     var iconStatus: IconStatus = .idle
     var iconImage: UIImage? = nil
     
-    private let weatherService: WeatherServiceType
+    @ObservationIgnored private let weatherService: WeatherServiceType
     private let iconLoader: WeatherIconLoading
     private let lastKnownStateStore: LastKnownAppStateStoring
     private let locationService: LocationServiceType?
